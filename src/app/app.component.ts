@@ -7,13 +7,52 @@ import { AfterViewInit, Component } from '@angular/core';
 })
 export class AppComponent implements AfterViewInit {
   title = 'JsPath';
-
+  objectList:any;
   /*
    query Selector of JS update dom element
    */
   
   constructor() {
     this.declaringVariable();
+    this.booleanCoercion(3,4,5,333,3,3,3,3);
+      if(this.interpolation()) {
+
+        console.log(this.interpolation());
+      }
+  }
+
+  interpolation() {
+    let strArray = ['1,2,3,4,5','1,4,5'];
+    let arr1 = strArray[0].split(',').map((val)=> Number(val));
+    let arr2 = strArray[1].split(',').map((val)=> Number(val));
+    let finalResult = [];
+    let chooseArray = 0;
+    let n = 0;
+    if(arr1.length > arr2.length) {
+      chooseArray = 0;
+      n = arr1.length;
+    } else {
+      chooseArray = 1;
+      n = arr2.length;
+    }
+
+    for(let i=0; i < n; i++) {
+      if(chooseArray == 0) {
+        if(arr1.includes(arr2[i])) {
+          finalResult.push(arr2[i]);
+        }
+      } else {
+        if(arr2.includes(arr1[i])) {
+          finalResult.push(arr2[i]);
+        }
+      }
+    }
+
+    return  finalResult && finalResult.length ? finalResult.join(',') : false;
+
+  }
+  booleanCoercion(...aa) {
+    console.log(aa.length);
   }
 
   declaringVariable() {
@@ -72,4 +111,5 @@ export class AppComponent implements AfterViewInit {
     }
   })
   }
+
 }
